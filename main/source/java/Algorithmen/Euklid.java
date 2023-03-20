@@ -3,24 +3,23 @@ package Algorithmen;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Euklid {
-// Hallo Welt
 
-    public List<BigInteger> possibleNumbers(BigInteger range) { // rechnet den Zahlenraum Z* aus
-        List<BigInteger> possible = new ArrayList<>();
-        BigInteger i = new BigInteger("1");
-        while (range.compareTo(i)> 0) {
-            if (easyGgt(i, range).equals(new BigInteger("1"))){
-                possible.add(i);
-            }
-            i = i.add(new BigInteger("1"));
+    public BigInteger possibleNumbers(BigInteger range) { // rechnet den Zahlenraum Z* aus
+        Random random = new Random();
+        BigInteger some = new BigInteger(32, random);
+        while (easyGgt(some, range).equals(new BigInteger("1"))) {
+            some = new BigInteger(2040, random);
         }
-        return possible;
+        return some;
     }
 
     public BigInteger function(BigInteger prime1, BigInteger prime2){
-        return prime1.subtract(new BigInteger("1").multiply(prime2.subtract( new BigInteger("1"))));
+         prime1 = prime1.subtract(new BigInteger("1"));
+         prime2 = prime2.subtract(new BigInteger("1"));
+         return prime1.multiply(prime2);
     }
 
     public BigInteger easyGgt(BigInteger a, BigInteger b) { // easy euklidian algorithm

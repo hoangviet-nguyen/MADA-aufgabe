@@ -13,8 +13,9 @@ public class Main {
         BigInteger q = new BigInteger(2048, 5, rnd);
         BigInteger n = p.multiply(q);
         BigInteger phi = euklid.function(p, q);
-        List<BigInteger> possible = euklid.possibleNumbers(phi);
-        BigInteger e = possible.get(rnd.nextInt(possible.size()));
+        BigInteger e = euklid.possibleNumbers(phi);
         BigInteger d = euklid.erweitertGgt(phi,e);
+        System.out.println(e);
+        System.out.println(d);
     }
 }
