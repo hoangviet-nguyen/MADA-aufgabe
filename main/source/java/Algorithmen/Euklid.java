@@ -1,15 +1,13 @@
 package Algorithmen;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Euklid {
 
     public BigInteger possibleNumbers(BigInteger range) { // rechnet den Zahlenraum Z* aus
         Random random = new Random();
-        BigInteger some = new BigInteger(32, random);
+        BigInteger some = new BigInteger(2048, random);
         while (easyGgt(some, range).equals(new BigInteger("1"))) {
             some = new BigInteger(2040, random);
         }
@@ -42,6 +40,7 @@ public class Euklid {
         BigInteger x0 = new BigInteger("1"); BigInteger y0 = new BigInteger("0");
         BigInteger x1 = new BigInteger("0"); BigInteger y1 = new BigInteger("1");
         BigInteger q = a.divide(b); BigInteger r = a.mod(b); BigInteger tempx; BigInteger tempy;
+
         while (b.compareTo(new BigInteger("0")) > 0) {
             a = b;
             b = r;
