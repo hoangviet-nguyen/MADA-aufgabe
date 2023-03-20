@@ -7,9 +7,7 @@ import java.util.List;
 public class Euklid {
 // Hallo Welt
 
-    public List<BigInteger> possibleNumbers(BigInteger prime1, BigInteger prime2) { // rechnet den Zahlenraum Z* aus
-
-        BigInteger range = prime1.subtract(new BigInteger("1").multiply(prime2.subtract( new BigInteger("1"))));
+    public List<BigInteger> possibleNumbers(BigInteger range) { // rechnet den Zahlenraum Z* aus
         List<BigInteger> possible = new ArrayList<>();
         BigInteger i = new BigInteger("1");
         while (range.compareTo(i)> 0) {
@@ -19,6 +17,10 @@ public class Euklid {
             i = i.add(new BigInteger("1"));
         }
         return possible;
+    }
+
+    public BigInteger function(BigInteger prime1, BigInteger prime2){
+        return prime1.subtract(new BigInteger("1").multiply(prime2.subtract( new BigInteger("1"))));
     }
 
     public BigInteger easyGgt(BigInteger a, BigInteger b) { // easy euklidian algorithm
@@ -36,32 +38,32 @@ public class Euklid {
         return b;
     }
 
-    public  static int erweitertGgt(int m, int e) { // continued euklidian algorithm
-        int a = m; int b = e;
-        int x0 = 1; int y0 = 0; int x1 = 0; int y1 = 1;
-        int q = a / b; int r = a % b; int tempx; int tempy;
-        int[] bezout = new int[2];
-        while (b > 0) {
+    public BigInteger erweitertGgt(BigInteger m, BigInteger e) { // continued euklidian algorithm
+        BigInteger a = m; BigInteger b = e;
+        BigInteger x0 = new BigInteger("1"); BigInteger y0 = new BigInteger("0");
+        BigInteger x1 = new BigInteger("0"); BigInteger y1 = new BigInteger("1");
+        BigInteger q = a.divide(b); BigInteger r = a.mod(b); BigInteger tempx; BigInteger tempy;
+        while (b.compareTo(new BigInteger("0")) > 0) {
             a = b;
             b = r;
             tempx = x0;
             tempy = y0;
             x0 = x1;
             y0 = y1;
-            x1 = tempx - q * x1;
-            y1 = tempy - q * y1;
-            if (b == 0){
-                if (y0 < 0){
-                    if (x1 * m + y1 * e == 0) {
-                        return y1 + y0;
+            x1 = tempx.subtract(q.multiply(x1));
+            y1 = tempy.subtract(q.multiply(y1));
+            if (b.compareTo(new BigInteger("0")) == 0){
+                if (y0.compareTo(new BigInteger("0")) < 0){
+                    if (x1.multiply(m).add(y1.multiply(e)).compareTo(new BigInteger("0")) == 0){
+                        return y1.add(y0);
                     } else {
                         return y1;
                     }
                 }
                 return y0;
             }
-            q = a/b;
-            r = a % b;
+            q = a.divide(b);
+            r = a.mod(b);
         }
         return y0;
     }
