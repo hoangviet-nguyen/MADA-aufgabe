@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Euklid {
-
+// Hallo Welt
 
     public List<Integer> possibleNumbers(int range) {
         List<Integer> possible = new ArrayList<>();
