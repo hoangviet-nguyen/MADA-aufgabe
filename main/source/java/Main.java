@@ -22,8 +22,8 @@ public class Main {
         BigInteger d = euklid.erweitertGgt(phi,e);
         System.out.println(e);
         System.out.println(d);
-        File pathPrivate = new File("C:\\Users\\hloga\\IdeaProjects\\MADA-aufgabe\\sk.txt");
-        File pathPublic = new File("C:\\Users\\hloga\\IdeaProjects\\MADA-aufgabe\\pk.txt");
+        File pathPrivate = new File("sk.txt");
+        File pathPublic = new File("pk.txt");
         try { //probiert PrivateKey zu speichern
             FileWriter wr = new FileWriter(pathPrivate);
             wr.write(n.toString());
