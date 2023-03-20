@@ -1,57 +1,63 @@
+import Algorithmen.Euklid;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
-
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import Algorithmen.Euklid;
 
 public class Main {
     public static void main(String[] args) {
-        Euklid euklid = new Euklid();
-        Random rnd = new Random();
-        BigInteger p = new BigInteger(2048, 5, rnd);
-        BigInteger q = new BigInteger(2048, 5, rnd);
-        BigInteger n = p.multiply(q);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bitte wählen Sie eine Option aus:");
+        System.out.println("1. Schlüsselgenerierung");                  //Aufgabe 1
+        System.out.println("2. Verschlüsselung");                       //Aufgabe 2
+        System.out.println("3. Entschlüsselung");                       //Aufgabe 3
+        int input = scanner.nextInt();
+
+        if (input == 1) {
+            Euklid euklid = new Euklid();                               //erstellt Objekt der Klasse Euklid mit allen Rechenmethoden
+            Random rnd = new Random();
+            BigInteger p = new BigInteger(2048, 5, rnd); // generiert 2x 2048 bit lange Primzahlen
+            BigInteger q = new BigInteger(2048, 5, rnd);
+            BigInteger n = p.multiply(q);                               // berechnet n = p*q
 
 
-        BigInteger phi = euklid.function(p, q);
-        BigInteger e = euklid.possibleNumbers(phi);
-        BigInteger d = euklid.erweitertGgt(phi,e);
-        System.out.println(e);
-        System.out.println(d);
-        File pathPrivate = new File("sk.txt");
-        File pathPublic = new File("pk.txt");
-        try { //probiert PrivateKey zu speichern
-            FileWriter wr = new FileWriter(pathPrivate);
-            wr.write(n.toString());
-            wr.write(d.toString());
+            BigInteger phi = euklid.function(p, q);                     // berechnet phi(n) = (p-1)*(q-1)
+            BigInteger e = euklid.possibleNumbers(phi);                 // berechnet mögliche e, die kleiner als phi(n) sind und mit phi(n) teilerfremd sind
+            BigInteger d = euklid.erweitertGgt(phi, e);                  // berechnet d mit dem erweiterten euklidischen Algorithmus
 
+            System.out.println("n: " + n);
+            System.out.println("e: " + e);
+            System.out.println("d: " + d);
 
-            System.out.println("test1");
-            wr.flush();
-            wr.close();
+            try {                                                       //probiert PrivateKey & PublicKey zu speichern
+                File pathPrivate = new File("sk.txt");
+                File pathPublic = new File("pk.txt");
+                FileWriter wr = new FileWriter(pathPrivate);
+                wr.write("(" + n + "," + d + ")");                   //schreibt PrivateKey in Datei im Format (n,d) in sk.txt
+                wr.flush();
+                wr.close();
+                wr = new FileWriter(pathPublic);
+                wr.write("(" + n + "," + e + ")");                   //schreibt PublicKey in Datei im Format (n,e) in pk.txt
+                wr.flush();
+                wr.close();
+                System.out.println("Dateien wurden erfolgreich gespeichert");
 
-        }  catch (IOException ee) {
-            System.out.println("fehler");
-            throw new RuntimeException(ee);
+            } catch (IOException ee) {
+                System.out.println("fehler beim speichern der Datei");
+                throw new RuntimeException(ee);
 
+            }
+        } else if (input == 2) {
+            System.out.println("TODO");
+        } else if (input == 3) {
+            System.out.println("TODO");
+        } else {
+            System.out.println("Falsche Eingabe");
         }
-        try {//probiert PublicKey zu speichern
-            FileWriter wr2 = new FileWriter(pathPublic);
-            wr2.write(n.toString());
-            wr2.write(e.toString());
-            wr2.flush();
-            wr2.close();
-        }catch (IOException ee) {
-            System.out.println("fehler");
-            throw new RuntimeException(ee);
-
-        }
-
-
 
     }
+
 }
