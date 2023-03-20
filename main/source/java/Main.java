@@ -1,6 +1,7 @@
 import Algorithmen.Euklid;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -52,6 +53,38 @@ public class Main {
             }
         } else if (input == 2) {
             System.out.println("TODO");
+
+            File textFile = new File("text.txt");
+            Scanner reader;
+            String text = "";
+            try {
+                reader = new Scanner(textFile);
+            } catch (FileNotFoundException e) {
+                System.out.println("fehler beim Lesen der Datei");
+                throw new RuntimeException(e);
+            }
+
+            while (reader.hasNextLine()) {
+                text = reader.nextLine();
+            }
+            System.out.println(text);
+
+            //***TODO*** String text verschlüsseln
+
+
+            try {                                                       //platzhalter verschlüsselter text speichern
+                FileWriter wr = new FileWriter(("chiffre.txt"));
+                wr.write("test chiffre");
+                wr.flush();
+                wr.close();
+                System.out.println("Dateien wurde erfolgreich Verschlüsselt");
+
+            } catch (IOException ee) {
+                System.out.println("fehler beim speichern der Datei");
+                throw new RuntimeException(ee);
+
+            }
+
         } else if (input == 3) {
             System.out.println("TODO");
         } else {
