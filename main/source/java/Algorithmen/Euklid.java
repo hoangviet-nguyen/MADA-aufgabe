@@ -6,7 +6,8 @@ import java.util.List;
 public class Euklid {
 // Hallo Welt
 
-    public List<Integer> possibleNumbers(int range) {
+    public List<Integer> possibleNumbers(int prime1, int prime2) { // rechnet den Zahlenraum Z* aus
+        int range = (prime1 -1) * (prime2 -1);
         List<Integer> possible = new ArrayList<>();
         int i = 0;
         while (i < range) {
@@ -16,9 +17,6 @@ public class Euklid {
             i++;
         }
         return possible;
-    }
-    public int zahlenRaum(int primzahl1, int primzahl2){
-        return (primzahl1 - 1) * (primzahl2 -1);
     }
 
     public int easyGgt(int a, int b){
