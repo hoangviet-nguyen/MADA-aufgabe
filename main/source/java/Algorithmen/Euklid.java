@@ -1,35 +1,37 @@
 package Algorithmen;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Euklid {
 // Hallo Welt
 
-    public List<Integer> possibleNumbers(int prime1, int prime2) { // rechnet den Zahlenraum Z* aus
-        int range = (prime1 -1) * (prime2 -1);
-        List<Integer> possible = new ArrayList<>();
-        int i = 0;
-        while (i < range) {
-            if (easyGgt(i, range) == 1){
+    public List<BigInteger> possibleNumbers(BigInteger prime1, BigInteger prime2) { // rechnet den Zahlenraum Z* aus
+
+        BigInteger range = prime1.subtract(new BigInteger("1").multiply(prime2.subtract( new BigInteger("1"))));
+        List<BigInteger> possible = new ArrayList<>();
+        BigInteger i = new BigInteger("1");
+        while (range.compareTo(i)> 0) {
+            if (easyGgt(i, range).equals(new BigInteger("1"))){
                 possible.add(i);
             }
-            i++;
+            i = i.add(new BigInteger("1"));
         }
         return possible;
     }
 
-    public int easyGgt(int a, int b) { // easy euklidian algorithm
-        if (a < b){
-            int temp = a;
+    public BigInteger easyGgt(BigInteger a, BigInteger b) { // easy euklidian algorithm
+        if (a.compareTo(b)<0){
+            BigInteger temp = a;
             a = b;
             b = temp;
         }
-        int r = a % b;
-        while (r != 0) {
+        BigInteger r = a.mod(b);
+        while (!r.equals(new BigInteger("0"))) {
             a = b;
             b = r;
-            r = a % b;
+            r =  a.mod(b);
         }
         return b;
     }
