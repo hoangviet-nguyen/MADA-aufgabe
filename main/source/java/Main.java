@@ -20,8 +20,8 @@ public class Main {
         if (input == 1) {
             Euklid euklid = new Euklid();                               //erstellt Objekt der Klasse Euklid mit allen Rechenmethoden
             Random rnd = new Random();
-            BigInteger p = new BigInteger(2048, 5, rnd); // generiert 2x 2048 bit lange Primzahlen
-            BigInteger q = new BigInteger(2048, 5, rnd);
+            BigInteger p = new BigInteger(2048, 8, rnd); // generiert 2x 2048 bit lange Primzahlen
+            BigInteger q = new BigInteger(2048, 8, rnd); // mit certainty 8 ist die wahrscheinlichkeit 99.61% eine Primzahl
             BigInteger n = p.multiply(q);                               // berechnet n = p*q
 
 
