@@ -8,8 +8,8 @@ public class Algorithms {
     public BigInteger possibleNumbers(BigInteger range) { // rechnet den Zahlenraum Z* aus
         Random random = new Random();
         BigInteger some = new BigInteger(2048, random);
-        while (easyGgt(some, range).equals(new BigInteger("1"))) {
-            some = new BigInteger(2040, random);
+        while (range.gcd(some).compareTo(new BigInteger("1")) != 0) {
+            some = new BigInteger(2048, random);
         }
         return some;
     }
@@ -18,21 +18,6 @@ public class Algorithms {
         prime1 = prime1.subtract(new BigInteger("1"));
         prime2 = prime2.subtract(new BigInteger("1"));
         return prime1.multiply(prime2);
-    }
-
-    public BigInteger easyGgt(BigInteger a, BigInteger b) { // easy euklidian algorithm
-        if (a.compareTo(b) < 0) {
-            BigInteger temp = a;
-            a = b;
-            b = temp;
-        }
-        BigInteger r = a.mod(b);
-        while (!r.equals(new BigInteger("0"))) {
-            a = b;
-            b = r;
-            r = a.mod(b);
-        }
-        return b;
     }
 
     public BigInteger erweitertGgt(BigInteger m, BigInteger e) { // continued euklidian algorithm
@@ -73,10 +58,10 @@ public class Algorithms {
     }
 
 
-    public BigInteger fastModExpo(BigInteger base, BigInteger exponent, BigInteger n) {
+    public BigInteger fastModExpo( BigInteger base, BigInteger exponent, BigInteger n) {
         BigInteger result = new BigInteger("1");
         while (exponent.compareTo(new BigInteger("0")) > 0) {
-            if (exponent.mod(new BigInteger("2")).compareTo(new BigInteger("0")) == 0) {
+            if (exponent.and(new BigInteger("1")).equals(new BigInteger("0"))) {
                 base = base.multiply(base);
                 base = base.mod(n);
                 exponent = exponent.shiftRight(1);
