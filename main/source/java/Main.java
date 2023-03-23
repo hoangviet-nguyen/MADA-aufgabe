@@ -29,8 +29,8 @@ public class Main {
             if (input == 1) {
                 algorithm = new Algorithms();                               //erstellt Objekt der Klasse Euklid mit allen Rechenmethoden
                 Random rnd = new Random();
-                p = new BigInteger(1500, 8, rnd); // generiert 2x 2048 bit lange Primzahlen
-                q = new BigInteger(1500, 8, rnd); // mit certainty 8 ist die wahrscheinlichkeit 99.61% eine Primzahl
+                p = new BigInteger(1024, 8, rnd); // generiert 2x 2048 bit lange Primzahlen
+                q = new BigInteger(1024, 8, rnd); // mit certainty 8 ist die wahrscheinlichkeit 99.61% eine Primzahl
                 n = p.multiply(q);                               // berechnet n = p*q
 
 
@@ -80,7 +80,9 @@ public class Main {
                 String verschluesselt = "";
                 for (int i = 0; i < text.length(); i++) {
                     System.out.println(text.charAt(i));
-                    verschluesselt = verschluesselt + algorithm.fastModExpo(e,n) + "\n";
+                    int temp = text.charAt(i);
+                    BigInteger someCharacter = new BigInteger(String.valueOf(temp));
+                    verschluesselt = verschluesselt + algorithm.fastModExpo(someCharacter,e,n) + "\n";
                 }
                 System.out.println(verschluesselt);
                 System.out.println(text);

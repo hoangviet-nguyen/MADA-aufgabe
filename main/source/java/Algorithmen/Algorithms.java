@@ -73,9 +73,8 @@ public class Algorithms {
     }
 
 
-    public BigInteger fastModExpo( BigInteger exponent, BigInteger n) {
+    public BigInteger fastModExpo(BigInteger base, BigInteger exponent, BigInteger n) {
         BigInteger result = new BigInteger("1");
-        BigInteger base = new BigInteger("3");
         while (exponent.compareTo(new BigInteger("0")) > 0) {
             if (exponent.mod(new BigInteger("2")).compareTo(new BigInteger("0")) == 0) {
                 base = base.multiply(base);
