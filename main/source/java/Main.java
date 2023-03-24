@@ -131,6 +131,47 @@ public class Main {
         }
 
         if (input == 3){
+            Scanner reader;
+            String bigString = "";
+            try {
+                File textFile = new File("sk.txt");
+                reader = new Scanner(textFile);
+                scanner.useDelimiter(",");
+                int counter = 0;
+                while (reader.hasNextLine()) {
+
+                    bigString = reader.nextLine();
+
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("fehler beim Lesen der Datei");
+                throw new RuntimeException(e);
+            }
+
+            String[] keys = bigString.substring(1,bigString.length()-1).split(",");
+            BigInteger n = new BigInteger(keys[0]);
+            BigInteger d = new BigInteger(keys[1]);
+            ArrayList<String> encrypted = new ArrayList<>();
+
+            try {
+                reader = new Scanner(new File("chiffre.txt"));
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            while (reader.hasNextLine()) {
+                encrypted.add(reader.nextLine());
+            }
+            System.out.printf(encrypted.get(1));
+            System.out.println("");
+            ArrayList<Character> ausgabe = new ArrayList<>();
+            for (int i = 0; i< encrypted.size(); i++){
+                BigInteger integer = algorithm.fastModExpo(new BigInteger(encrypted.get(i)), d, n);
+                System.out.println((char) integer.intValue());
+                ausgabe.add((char) integer.intValue());
+
+
+            }
 
         }
     }
