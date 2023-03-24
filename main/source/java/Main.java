@@ -19,12 +19,10 @@ public class Main {
     public static BigInteger e;
     public static BigInteger d;
     public static Scanner scanner;
-    public static int input;
     public static ArrayList<BigInteger> verschluesselt = new ArrayList<>();
+    public static int input;
 
     public static void main(String[] args) {
-        int input;
-
 
         do {
             input = menu();
@@ -108,7 +106,7 @@ public class Main {
                     FileWriter wr = new FileWriter(("chiffre.txt"));
 
                     for (BigInteger i : verschluesselt) {
-                        wr.write(String.valueOf(i) + "\n");
+                        wr.write(i + "\n");
                     }
 
                     wr.flush();
@@ -129,7 +127,6 @@ public class Main {
                     File textFile = new File("sk.txt");
                     reader = new Scanner(textFile);
                     scanner.useDelimiter(",");
-                    int counter = 0;
                     while (reader.hasNextLine()) {
 
                         bigString = reader.nextLine();
