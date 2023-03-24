@@ -67,7 +67,6 @@ public class Main {
         }
         if (input == 2) {
 
-            Scanner scanner = new Scanner(System.in);
             Scanner reader;
             String bigString = "";
             try {
@@ -104,10 +103,6 @@ public class Main {
             }
 
 
-
-
-
-
             for (int i = 0; i < text.length(); i++) {
                 System.out.println(text.charAt(i));                                // Liest die String werte aus dem Text
                 int temp = text.charAt(i);                                         // Wandelt die Werte in int's um
@@ -119,7 +114,11 @@ public class Main {
 
             try {
                 FileWriter wr = new FileWriter(("chiffre.txt"));
-                wr.write("test chiffre");
+                for (BigInteger i : verschluesselt
+                     ) {
+                    wr.write(String.valueOf(i)+ "\n");
+
+                }
                 wr.flush();
                 wr.close();
                 System.out.println("Dateien wurde erfolgreich Verschlüsselt");
@@ -129,6 +128,10 @@ public class Main {
                 throw new RuntimeException(ee);
 
             }
+        }
+
+        if (input == 3){
+
         }
     }
 }
