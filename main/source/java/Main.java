@@ -30,19 +30,16 @@ public class Main {
             input = menu();
 
             if (input == 1) {
-                //erstellt Objekt der Klasse Euklid mit allen Rechenmethoden
+                //erstellt Objekt der Klasse Algorithms mit allen Rechenmethoden
                 Random rnd = new Random();
-                p = new BigInteger(1024, 8, rnd);       // generiert 2x 2048 bit lange Primzahlen
-                q = new BigInteger(1024, 8,
-                    rnd);       // mit certainty 8 ist die wahrscheinlichkeit 99.61% eine Primzahl
+                p = new BigInteger(1024, 8, rnd);       // generiert 2x 1024 bit lange Primzahlen
+                q = new BigInteger(1024, 8, rnd);       // mit certainty 8 ist die wahrscheinlichkeit 99.61% eine Primzahl
                 n = p.multiply(q);                                      // berechnet n = p*q
 
 
                 phi = algorithm.function(p, q);                         // berechnet phi(n) = (p-1)*(q-1)
-                e = algorithm.possibleNumbers(
-                    phi);                     // berechnet mögliche e, die kleiner als phi(n) sind und mit phi(n) teilerfremd sind
-                d = algorithm.erweitertGgt(phi,
-                    e);                     // berechnet d mit dem erweiterten euklidischen Algorithmus
+                e = algorithm.possibleNumbers(phi);                     // berechnet mögliche e, die kleiner als phi(n) sind und mit phi(n) teilerfremd sind
+                d = algorithm.erweitertGgt(phi, e);                     // berechnet d mit dem erweiterten euklidischen Algorithmus
 
                 System.out.println("n: " + n);
                 System.out.println("e: " + e);
@@ -52,13 +49,11 @@ public class Main {
                     File pathPrivate = new File("sk.txt");
                     File pathPublic = new File("pk.txt");
                     FileWriter wr = new FileWriter(pathPrivate);
-                    wr.write("(" + n + "," + d +
-                        ")");                   //schreibt PrivateKey in Datei im Format (n,d) in sk.txt
+                    wr.write("(" + n + "," + d + ")");                   //schreibt PrivateKey in Datei im Format (n,d) in sk.txt
                     wr.flush();
                     wr.close();
                     wr = new FileWriter(pathPublic);
-                    wr.write("(" + n + "," + e +
-                        ")");                   //schreibt PublicKey in Datei im Format (n,e) in pk.txt
+                    wr.write("(" + n + "," + e + ")");                   //schreibt PublicKey in Datei im Format (n,e) in pk.txt
                     wr.flush();
                     wr.close();
                     System.out.println("Dateien wurden erfolgreich gespeichert");
@@ -77,11 +72,8 @@ public class Main {
                     File textFile = new File("pk.txt");
                     reader = new Scanner(textFile);
                     scanner.useDelimiter(",");
-                    int counter = 0;
                     while (reader.hasNextLine()) {
-
                         bigString = reader.nextLine();
-
                     }
                 } catch (FileNotFoundException e) {
                     System.out.println("fehler beim Lesen der Datei");
@@ -91,7 +83,6 @@ public class Main {
                 String[] keys = bigString.substring(1, bigString.length() - 1).split(",");
                 BigInteger n = new BigInteger(keys[0]);
                 BigInteger e = new BigInteger(keys[1]);
-                String en = "";
 
                 File textFile = new File("text.txt");
 
@@ -108,23 +99,18 @@ public class Main {
 
 
                 for (int i = 0; i < text.length(); i++) {
-                    //System.out.println(text.charAt(i));                                // Liest die String werte aus dem Text
-                    int temp = text.charAt(i);                                         // Wandelt die Werte in int's um
-                    BigInteger someCharacter =
-                        new BigInteger(String.valueOf(temp));   // Wandelt den int in ein BigInteger
-                    verschluesselt.add(algorithm.fastModExpo(someCharacter, e,
-                        n));    // verschlüsselt Text, speichert in Liste für entschlüsselung
+                    int temp = text.charAt(i);                                            // Liest die String werte aus dem Text
+                    BigInteger someCharacter = new BigInteger(String.valueOf(temp));
+                    verschluesselt.add(algorithm.fastModExpo(someCharacter, e, n));      // verschlüsselt Text, speichert in Liste für entschlüsselung
                 }
-                //System.out.println(verschluesselt);
-                //System.out.println(text);
 
                 try {
                     FileWriter wr = new FileWriter(("chiffre.txt"));
-                    for (BigInteger i : verschluesselt
-                    ) {
-                        wr.write(String.valueOf(i) + "\n");
 
+                    for (BigInteger i : verschluesselt) {
+                        wr.write(String.valueOf(i) + "\n");
                     }
+
                     wr.flush();
                     wr.close();
                     System.out.println("Dateien wurde erfolgreich Verschlüsselt");
@@ -168,22 +154,20 @@ public class Main {
                 while (reader.hasNextLine()) {
                     encrypted.add(reader.nextLine());
                 }
-                //System.out.printf(encrypted.get(1));
-                //System.out.println("");
+
                 ArrayList<Character> ausgabe = new ArrayList<>();
-                for (int i = 0; i < encrypted.size(); i++) {
-                    BigInteger integer = algorithm.fastModExpo(new BigInteger(encrypted.get(i)), d, n);
+
+                for (String s : encrypted) {
+                    BigInteger integer = algorithm.fastModExpo(new BigInteger(s), d, n);
                     System.out.println((char) integer.intValue());
                     ausgabe.add((char) integer.intValue());
-
-
                 }
 
 
                 try {
                     FileWriter wr = new FileWriter(("text-d.txt"));
-                    for (int i = 0; i < ausgabe.size(); i++) {
-                        wr.write(ausgabe.get(i));
+                    for (Character character : ausgabe) {
+                        wr.write(character);
                     }
                     wr.flush();
                     wr.close();
@@ -192,12 +176,10 @@ public class Main {
                 } catch (IOException ee) {
                     System.out.println("fehler beim speichern der Datei");
                     throw new RuntimeException(ee);
-
                 }
             }
-        }
-        while (input!=4);
 
+        } while (input!=4);
 
     }
 
@@ -208,7 +190,6 @@ public class Main {
         System.out.print(" 2. Verschlüsselung |");                   //Aufgabe 2
         System.out.print(" 3. Entschlüsselung |");                   //Aufgabe 3
         System.out.println(" 4. schliessen");
-
         return scanner.nextInt();
     }
 }
